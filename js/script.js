@@ -9,8 +9,20 @@ const playAgainButton = document.querySelector(".play-again");
 
 const word = "magnolia";
 
-const progressWords = function () {
-    wordInProgress.innerText = ("●");
-}
+const progressWords = function (word) {
+    const progressWordsDots = [];
+    for (const letter of word) {
+        console.log(letter);
+        progressWordsDots.push("●");
+    }
+    wordInProgress.innerText = progressWordsDots.join("");
+};
 progressWords(word);
 
+guessButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    const inputValue = guestInput.value;
+    console.log(inputValue);
+    //clear input
+    inputValue.value = "";
+});
