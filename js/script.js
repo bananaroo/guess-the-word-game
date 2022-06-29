@@ -31,7 +31,7 @@ guessButton.addEventListener("click", function (e) {
     if (goodGuess) {
         makeGuess(inputValue);
     }
-    inputValue.value = "";
+    guestInput.value = "";
 });
 
 const acceptedInput = function (input) {
