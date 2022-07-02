@@ -7,8 +7,21 @@ const countDownGuesses = document.querySelector(".remaining span");
 const messageBox = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
 
-const word = "magnolia";
+let word = "magnolia";
 const guessedLetters = [];
+let remainingGuessCount = 8;
+
+const getWord = async function (){
+    const response = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
+    const words = await response.text();
+    //console.log(words);
+    const wordArray = words.split("\n");
+    const randomWord = Math.floor(Math.random() * wordArray.length);
+    word = wordArray[randomWord].trim();
+    progressWords(word);
+};
+
+getWord();
 
 const progressWords = function (word) {
     const progressWordsDots = [];
@@ -55,6 +68,7 @@ const makeGuess = function (inputValue) {
     } else {
         guessedLetters.push(inputValue);
         console.log(guessedLetters);
+        guessesLeft(inputValue);
         showLetters();
         wordUpdate(guessedLetters);
     }
@@ -83,9 +97,29 @@ const wordUpdate = function (guessedLetters) {
     wordInProgress.innerText = showWord.join("");
 };
 
+//count guesses remaining
+const guessesLeft = function (inputValue) {
+  const upperWord = word.toUpperCase();  
+  if (!upperWord.includes(inputValue)) {
+    messageBox.innerText = `There is no ${inputValue} in this word!`;
+    remainingGuessCount -= 1;
+  } else {
+    messageBox.innerText = `Yep! ${inputValue} is correct!`;
+  }
+  if (remainingGuessCount === 0) {
+    messageBox.innerText = `Sorry, no more guesses! The word was ${word}.`;
+  } else if (remainingGuessCount === 1) {
+    countDownGuesses.innerText = `${remainingGuessCount} guess left!`;
+  } else {
+    countDownGuesses.innerText = `${remainingGuessCount} guesses left!`;
+  }
+};
+
 const successfulGuess = function (){
     if (word.toUpperCase() === wordInProgress.innerText) {
         messageBox.classList.add("win");
     messageBox.innerHTML = `<p class="highlight">You guessed correct the word! Congrats!</p>`;
     }
 };
+
+
