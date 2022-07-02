@@ -8,7 +8,7 @@ const messageBox = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
 
 let word = "magnolia";
-const guessedLetters = [];
+let guessedLetters = [];
 let remainingGuessCount = 8;
 
 const getWord = async function (){
@@ -26,12 +26,12 @@ getWord();
 const progressWords = function (word) {
     const progressWordsDots = [];
     for (const letter of word) {
-        console.log(letter);
+        //console.log(letter);
         progressWordsDots.push("●");
     }
     wordInProgress.innerText = progressWordsDots.join("");
 };
-progressWords(word);
+//progressWords(word);
 
 guessButton.addEventListener("click", function (e) {
     e.preventDefault();
@@ -95,6 +95,7 @@ const wordUpdate = function (guessedLetters) {
         }
      }    
     wordInProgress.innerText = showWord.join("");
+    successfulGuess();
 };
 
 //count guesses remaining
@@ -108,18 +109,43 @@ const guessesLeft = function (inputValue) {
   }
   if (remainingGuessCount === 0) {
     messageBox.innerText = `Sorry, no more guesses! The word was ${word}.`;
+    startOver();
   } else if (remainingGuessCount === 1) {
-    countDownGuesses.innerText = `${remainingGuessCount} guess left!`;
+    countDownGuesses.innerText = `${remainingGuessCount}`;
   } else {
-    countDownGuesses.innerText = `${remainingGuessCount} guesses left!`;
+    countDownGuesses.innerText = `${remainingGuessCount}`;
   }
 };
 
 const successfulGuess = function (){
     if (word.toUpperCase() === wordInProgress.innerText) {
         messageBox.classList.add("win");
-    messageBox.innerHTML = `<p class="highlight">You guessed correct the word! Congrats!</p>`;
+    messageBox.innerHTML = `<p class="highlight">You guessed the correct word! Congrats!</p>`;
+    
+    startOver();
     }
 };
 
+//hide
+const startOver = function () {
+    guessButton.classList.add("hide");
+    remainingGuesses.classList.add("hide");
+    guestInput.classList.add("hide");
+    playAgainButton.classList.remove("hide");
+};
 
+playAgainButton.addEventListener("click", function () {
+    messageBox.classList.remove("win");
+    remainingGuessCount = 8;
+    guessedLetters = [];
+    countDownGuesses.innerText = `${remainingGuessCount} guesses left.`;
+    guessedLettersInput.innerHTML = "";
+    messageBox.innerText = "";
+
+    getWord();
+
+    guessButton.classList.remove("hide");
+    remainingGuesses.classList.remove("hide");
+    guessedLetters.classList.remove("hide");
+    playAgainButton.classList.add("hide");
+});
