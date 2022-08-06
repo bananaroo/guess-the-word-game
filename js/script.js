@@ -55,7 +55,7 @@ const acceptedInput = function (input) {
     } else if (input.length > 1) {
         messageBox.innerText = "Only one letter is accepted.";
     } else if (!input.match(acceptedLetter)) {
-        messageBox.innerText = "Try again!";
+        messageBox.innerText = "Letters only!";
     } else {
         return input;
         //messageBox.innerText = "Great guess!";
@@ -109,7 +109,7 @@ const guessesLeft = function (inputValue) {
     messageBox.innerText = `Yep! ${inputValue} is correct!`;
   }
   if (remainingGuessCount === 0) {
-    messageBox.innerText = `Sorry, no more guesses! The word was ${word}.`;
+    messageBox.innerText = `Sorry, no more guesses! The word was "${word}".`;
     startOver();
   } else if (remainingGuessCount === 1) {
     countDownGuesses.innerText = `${remainingGuessCount}`;
@@ -140,10 +140,10 @@ playAgainButton.addEventListener("click", function () {
     messageBox.classList.remove("win");
     remainingGuessCount = 8;
     guessedLetters = [];
-    countDownGuesses.innerText = `${remainingGuessCount} guesses left.`;
+    countDownGuesses.innerText = `${remainingGuessCount}`;
     guessedLettersInput.innerHTML = "";
     messageBox.innerText = "";
-
+   
     getWord();
 
     guessButton.classList.remove("hide");
