@@ -6,6 +6,7 @@ const remainingGuesses = document.querySelector(".remaining");
 const countDownGuesses = document.querySelector(".remaining span");
 const messageBox = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
+const typeLetter = document.querySelector(".type-letter");
 
 let word = "magnolia";
 let guessedLetters = [];
@@ -117,7 +118,7 @@ const guessesLeft = function (inputValue) {
   }
 };
 
-const successfulGuess = function (){
+const successfulGuess = function () {
     if (word.toUpperCase() === wordInProgress.innerText) {
         messageBox.classList.add("win");
     messageBox.innerHTML = `<p class="highlight">You guessed the correct word! Congrats!</p>`;
@@ -132,6 +133,7 @@ const startOver = function () {
     remainingGuesses.classList.add("hide");
     guestInput.classList.add("hide");
     playAgainButton.classList.remove("hide");
+    typeLetter.classList.add("hide");
 };
 
 playAgainButton.addEventListener("click", function () {
