@@ -150,5 +150,5 @@ playAgainButton.addEventListener("click", function () {
     playAgainButton.classList.add("hide");
     remainingGuesses.classList.remove("hide");
     guessedLettersInput.classList.remove("hide");
-    
+    guestInput.classList.remove("hide");
 });
