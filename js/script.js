@@ -121,7 +121,7 @@ const guessesLeft = function (inputValue) {
 const successfulGuess = function () {
     if (word.toUpperCase() === wordInProgress.innerText) {
         messageBox.classList.add("win");
-    messageBox.innerHTML = `<p class="highlight">You guessed the correct word! Congrats!</p>`;
+        messageBox.innerHTML = `<p class="highlight">You guessed the correct word! Congrats!</p>`;
     
     startOver();
     }
@@ -138,8 +138,8 @@ const startOver = function () {
 
 playAgainButton.addEventListener("click", function () {
     messageBox.classList.remove("win");
-    remainingGuessCount = 8;
     guessedLetters = [];
+    remainingGuessCount = 8;
     countDownGuesses.innerText = `${remainingGuessCount}`;
     guessedLettersInput.innerHTML = "";
     messageBox.innerText = "";
@@ -147,7 +147,8 @@ playAgainButton.addEventListener("click", function () {
     getWord();
 
     guessButton.classList.remove("hide");
-    remainingGuesses.classList.remove("hide");
-    guessedLetters.classList.remove("hide");
     playAgainButton.classList.add("hide");
+    remainingGuesses.classList.remove("hide");
+    guessedLettersInput.classList.remove("hide");
+    
 });
